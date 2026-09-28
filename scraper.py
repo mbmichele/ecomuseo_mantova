@@ -42,7 +42,10 @@ HEADERS = {
         "image/avif,image/webp,*/*;q=0.8"
     ),
     "Accept-Language": "it-IT,it;q=0.8,en-US;q=0.5,en;q=0.3",
-    "Accept-Encoding": "gzip, deflate, br",
+    # NB: niente "br" qui — richiederebbe il pacchetto brotli/brotlicffi,
+    # non presente di default; dichiararlo senza averlo fa arrivare una
+    # risposta non decomprimibile (0 elementi trovati pur senza errori HTTP).
+    "Accept-Encoding": "gzip, deflate",
     "Connection": "keep-alive",
     "Upgrade-Insecure-Requests": "1",
     "Sec-Fetch-Dest": "document",
@@ -56,6 +59,12 @@ HEADERS = {
 def fetch_list_page():
     resp = requests.get(LIST_URL, headers=HEADERS, timeout=30)
     resp.raise_for_status()
+    print(
+        f"GET {LIST_URL} -> {resp.status_code}, "
+        f"{len(resp.content)} bytes, content-encoding="
+        f"{resp.headers.get('Content-Encoding')}, "
+        f"content-type={resp.headers.get('Content-Type')}"
+    )
     return resp.text
 
 
