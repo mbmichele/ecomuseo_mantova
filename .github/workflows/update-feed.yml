@@ -1,0 +1,69 @@
+name: Aggiorna feed RSS Ecomuseo Mantova
+
+on:
+  # Cron interno di GitHub Actions: ogni ora
+  schedule:
+    - cron: "0 * * * *"
+  # Permette il trigger manuale e quello da cron esterno (es. cron-job.org)
+  # tramite chiamata all'API di GitHub (workflow_dispatch event)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  update-feed:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installa dipendenze
+        run: pip install -r requirements.txt
+
+      - name: Genera feed RSS
+        run: python scraper.py
+
+      - name: Carica HTML di debug (solo se lo scraping ha fallito)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-response
+          path: debug_last_response.html
+          if-no-files-found: ignore
+          retention-days: 3
+
+      - name: Commit e push se il feed è cambiato
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if [ -z "$(git status --porcelain docs/feed.xml)" ]; then
+            echo "Nessuna modifica al feed."
+            exit 0
+          fi
+
+          git add docs/feed.xml
+          git commit -m "Aggiorna feed RSS [skip ci]"
+
+          # Il cron interno e quello esterno (cron-job.org) possono scattare
+          # quasi in contemporanea: se il push fallisce perché nel frattempo
+          # è stato fatto un altro commit, riallineiamo con fetch+rebase e
+          # riproviamo, invece di far fallire il job.
+          for i in 1 2 3 4 5; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push fallito (tentativo $i), riallineo con fetch+rebase..."
+            sleep $(( RANDOM % 10 + 5 ))
+            git fetch origin main
+            git rebase origin/main
+          done
+
+          echo "Push fallito dopo piu' tentativi." >&2
+          exit 1
