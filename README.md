@@ -1,6 +1,6 @@
 # ecomuseo_mantova
 
-**Versione: v1.2.0** — vedi [CHANGELOG.md](CHANGELOG.md)
+**Versione: v1.3.0** — vedi [CHANGELOG.md](CHANGELOG.md)
 
 [![Aggiorna feed RSS](https://github.com/mbmichele/ecomuseo_mantova/actions/workflows/update-feed.yml/badge.svg)](https://github.com/mbmichele/ecomuseo_mantova/actions/workflows/update-feed.yml)
 
@@ -57,6 +57,7 @@ Poi, su GitHub:
 ## Risoluzione problemi
 
 - **Lo scraper trova 0 elementi pur senza errori HTTP**: quasi sempre è perché la risposta arriva compressa in un formato che `requests` non riesce a decomprimere (es. Brotli, se il pacchetto `brotli`/`brotlicffi` non è installato). Per questo l'header `Accept-Encoding` dichiara solo `gzip, deflate` (che `requests` gestisce sempre nativamente) e **non** `br`. Se succede di nuovo, controlla nel log dell'Action la riga `GET ... -> status, bytes, content-encoding=...` e il file `debug_last_response.html` caricato come artifact del workflow in caso di fallimento.
+- **Il job fallisce con `requests.exceptions.ReadTimeout`**: è un timeout di rete transitorio verso il sito (non un bug del parser). Lo scraper ritenta automaticamente fino a 3 volte con backoff crescente prima di arrendersi; se fallisce comunque, aspetta il run successivo (orario) o rilancialo a mano.
 - **Il workflow automatico "pages build and deployment" fallisce con `No such file or directory ... /docs`**: è il build Jekyll che GitHub avvia da solo quando Pages è configurato come "Deploy from a branch". Fallisce se la cartella `/docs` non esiste ancora nel repo (git non traccia cartelle vuote) o se GitHub prova comunque a processarla con Jekyll. Il file `docs/.nojekyll` (vuoto, già incluso nel repo) risolve entrambe le cose: tiene la cartella tracciata fin dal primo commit e disattiva il build Jekyll, lasciando `feed.xml` servito così com'è.
 
 ## Prompt di generazione originale

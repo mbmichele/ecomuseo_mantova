@@ -2,6 +2,9 @@
 
 Versioning semantico (MAJOR.MINOR.PATCH).
 
+## v1.3.0 — 2026-10-02
+- Fix: timeout di rete verso ecomuseomantova.it (`ReadTimeout`) non più fatale — lo scraper ora ritenta fino a 3 volte (con backoff crescente) prima di fallire, e il timeout per richiesta è salito da 30 a 45s.
+
 ## v1.2.0 — 2026-09-28
 - Fix: rimosso `br` da `Accept-Encoding` (causava 0 elementi trovati: la risposta arrivava compressa in Brotli, non decomprimibile senza il pacchetto `brotli`/`brotlicffi`).
 - Aggiunto log dello status/dimensione/content-encoding della risposta HTTP nello scraper, per diagnosticare più in fretta eventuali problemi futuri.

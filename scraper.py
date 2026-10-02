@@ -17,6 +17,7 @@ import hashlib
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone
 from email.utils import format_datetime
 
@@ -56,16 +57,34 @@ HEADERS = {
 }
 
 
+REQUEST_TIMEOUT = 45  # secondi; il sito a volte è lento a rispondere
+MAX_FETCH_ATTEMPTS = 3
+RETRY_BACKOFF_SECONDS = 10
+
+
 def fetch_list_page():
-    resp = requests.get(LIST_URL, headers=HEADERS, timeout=30)
-    resp.raise_for_status()
-    print(
-        f"GET {LIST_URL} -> {resp.status_code}, "
-        f"{len(resp.content)} bytes, content-encoding="
-        f"{resp.headers.get('Content-Encoding')}, "
-        f"content-type={resp.headers.get('Content-Type')}"
-    )
-    return resp.text
+    last_error = None
+    for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
+        try:
+            resp = requests.get(LIST_URL, headers=HEADERS, timeout=REQUEST_TIMEOUT)
+            resp.raise_for_status()
+            print(
+                f"GET {LIST_URL} -> {resp.status_code}, "
+                f"{len(resp.content)} bytes, content-encoding="
+                f"{resp.headers.get('Content-Encoding')}, "
+                f"content-type={resp.headers.get('Content-Type')}"
+            )
+            return resp.text
+        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as exc:
+            last_error = exc
+            print(
+                f"Tentativo {attempt}/{MAX_FETCH_ATTEMPTS} fallito "
+                f"({exc.__class__.__name__}: {exc}).",
+                file=sys.stderr,
+            )
+            if attempt < MAX_FETCH_ATTEMPTS:
+                time.sleep(RETRY_BACKOFF_SECONDS * attempt)
+    raise last_error
 
 
 def parse_items(html):
