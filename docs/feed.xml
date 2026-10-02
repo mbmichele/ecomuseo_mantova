@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0">
+  <channel>
+    <title>Ecomuseo di Mantova — News ed Eventi (feed non ufficiale)</title>
+    <link>https://www.ecomuseomantova.it/news-eventi/pagina-1</link>
+    <description>Feed RSS non ufficiale delle news e degli eventi pubblicati da Ecomuseo di Mantova (ecomuseomantova.it).</description>
+    <docs>http://www.rssboard.org/rss-specification</docs>
+    <generator>python-feedgen</generator>
+    <language>it</language>
+    <lastBuildDate>Fri, 02 Oct 2026 14:01:16 +0000</lastBuildDate>
+    <item>
+      <title>Luce tra i petali</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3162/luce-tra-i-petali</link>
+      <description>Mostra di Roberto Corso</description>
+      <guid isPermaLink="false">87140234aa3e86916d2aff0fd6e43ca9e57f523a51fe604ca77b8d9f6dff713b</guid>
+      <pubDate>Sat, 20 Jun 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Festa AVIS Castel d'Ario</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3169/festa-avis-castel-dario</link>
+      <guid isPermaLink="false">a7b03cd8ba3f32043b7a207754e51f9f8cd3fb119610a33bf4031663067848c8</guid>
+      <pubDate>Thu, 13 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Festival del Riso 2026</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3173/festival-del-riso-2026</link>
+      <description>XIV edizione - a cura della Pro Loco Castel d'Ario</description>
+      <guid isPermaLink="false">dc17d82c02b2663e23d030bdc6a12ceb3905695639485040ccc9f51e8474757a</guid>
+      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Inaugurazione della nuova sala consiliare di Roncoferraro e donazione delle opere di N. Calesella</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3177/inaugurazione-della-nuova-sala-consiliare-di-roncoferraro-e-donazione-delle-opere-di-n-calesella</link>
+      <description>Comune di Roncoferraro</description>
+      <guid isPermaLink="false">75bb0a86e52ab6176b484cb8d64b0a43448db9bb2508e27be7fc66d46a228240</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Inaugurazione Spazio Concari</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3180/inaugurazione-spazio-concari</link>
+      <description>Laboratorio del Fiume - 5/6/7 settembre 2026</description>
+      <guid isPermaLink="false">28c8787ab6886a5d73d6c2a01ad8ea01b0a0d907c7b104b705df975d1bb2154b</guid>
+      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>La mia Mantova - 2^ edizione</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3185/la-mia-mantova-2-edizione</link>
+      <description>Mostra d'arte collettiva</description>
+      <guid isPermaLink="false">624a250aa173b91aebb6f8bffe2fd2893507609fcd6ca6e63adc28cc1b216318</guid>
+      <pubDate>Sun, 20 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Le case museo come dimore della memoria: un patrimonio tra storia e territorio</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3192/le-case-museo-come-dimore-della-memoria-un-patrimonio-tra-storia-e-territorio</link>
+      <description>Casa Museo Francioli Nuvolari - Villimpenta</description>
+      <guid isPermaLink="false">9794eada19bdcb7458f2a2bb308d97240d6d3a547d8a9df85c09f6e800d506e4</guid>
+      <pubDate>Tue, 29 Sep 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Campagne 2026 - 20^ edizione</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3165/campagne-2026-20-edizione</link>
+      <description>Concorso fotografico del Consorzio Agrituristico Mantovano</description>
+      <guid isPermaLink="false">48f751879b9d0d992fbf55925e30b192a095c706a27b30b5f8289cc8287ea8ae</guid>
+      <pubDate>Fri, 30 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Spazio Concari - Laboratorio del fiume</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3188/spazio-concari-laboratorio-del-fiume</link>
+      <description>Programma eventi autunno 2026</description>
+      <guid isPermaLink="false">49ece82540cdf90d7365a40428d96321687b3d96d6a2d1e25c8fa166609dd61f</guid>
+      <pubDate>Tue, 08 Dec 2026 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>
