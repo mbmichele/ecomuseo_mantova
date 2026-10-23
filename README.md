@@ -1,6 +1,6 @@
 # ecomuseo_mantova
 
-**Versione: v1.3.0** — vedi [CHANGELOG.md](CHANGELOG.md)
+**Versione: v1.4.0** — vedi [CHANGELOG.md](CHANGELOG.md)
 
 [![Aggiorna feed RSS](https://github.com/mbmichele/ecomuseo_mantova/actions/workflows/update-feed.yml/badge.svg)](https://github.com/mbmichele/ecomuseo_mantova/actions/workflows/update-feed.yml)
 
@@ -57,12 +57,15 @@ Poi, su GitHub:
 ## Risoluzione problemi
 
 - **Lo scraper trova 0 elementi pur senza errori HTTP**: quasi sempre è perché la risposta arriva compressa in un formato che `requests` non riesce a decomprimere (es. Brotli, se il pacchetto `brotli`/`brotlicffi` non è installato). Per questo l'header `Accept-Encoding` dichiara solo `gzip, deflate` (che `requests` gestisce sempre nativamente) e **non** `br`. Se succede di nuovo, controlla nel log dell'Action la riga `GET ... -> status, bytes, content-encoding=...` e il file `debug_last_response.html` caricato come artifact del workflow in caso di fallimento.
-- **Il job fallisce con `requests.exceptions.ReadTimeout`**: è un timeout di rete transitorio verso il sito (non un bug del parser). Lo scraper ritenta automaticamente fino a 3 volte con backoff crescente prima di arrendersi; se fallisce comunque, aspetta il run successivo (orario) o rilancialo a mano.
+- **Il job fallisce o compare l'avviso "Feed non aggiornato"**: il sito dell'Ecomuseo a volte è lento o momentaneamente irraggiungibile. Lo scraper ritenta fino a 4 volte (timeout 45 s, pausa crescente) anche sugli errori HTTP temporanei (408, 429, 5xx). Se il sito resta giù, il job **non fallisce**: segnala un avviso (`::warning::`) e lascia pubblicato il feed precedente, riprovando al giro successivo. Fallisce invece (job rosso) quando l'errore è reale: HTTP 403/404 (blocco anti-bot o URL cambiato) oppure 0 elementi trovati, nel qual caso l'HTML ricevuto viene salvato come artifact `debug-response` del workflow.
+- **Un run risulta "cancelled" con "The job was not acquired by Runner"**: è un problema temporaneo dell'infrastruttura di GitHub, non del repo; il run successivo funziona normalmente.
+- **Il feed veniva committato ogni ora anche senza novità**: `feedgen` scrive una `lastBuildDate` nuova a ogni generazione. Il confronto ora la ignora, quindi si committa (e si rifà il deploy di Pages) solo quando cambiano davvero gli elementi.
+- **Il runner**: il workflow usa `ubuntu-24.04` (non `ubuntu-latest`) per non subire cambi di immagine improvvisi, come la migrazione di `ubuntu-latest` a Ubuntu 26 iniziata a ottobre 2026. Un blocco `concurrency` mette in coda i run, così cron interno ed esterno non scrivono in parallelo.
 - **Il workflow automatico "pages build and deployment" fallisce con `No such file or directory ... /docs`**: è il build Jekyll che GitHub avvia da solo quando Pages è configurato come "Deploy from a branch". Fallisce se la cartella `/docs` non esiste ancora nel repo (git non traccia cartelle vuote) o se GitHub prova comunque a processarla con Jekyll. Il file `docs/.nojekyll` (vuoto, già incluso nel repo) risolve entrambe le cose: tiene la cartella tracciata fin dal primo commit e disattiva il build Jekyll, lasciando `feed.xml` servito così com'è.
 
 ## Prompt di generazione originale
 
-Questo repository è stato generato da Claude a partire dal seguente prompt dell'utente:
+Questo repository è stato generato a partire dal seguente prompt:
 
 > Crea un repo per gist che crea un flusso rss degli articoli che vengono pubblicato alla pagina https://www.ecomuseomantova.it/news-eventi/pagina-1.
 > Devono esserci cron esterni ed interni tutti fi un'ora.
@@ -82,4 +85,7 @@ Prompt unico, autosufficiente, con tutti i requisiti raccolti nel corso della co
 > - Doppio cron orario indipendente: cron interno di GitHub Actions (`schedule: cron: "0 * * * *"`) **e** cron esterno su **cron-job.org** che chiama l'API di GitHub (`POST .../actions/workflows/<file>.yml/dispatches`) per innescare lo stesso workflow via `workflow_dispatch`.
 > - Il workflow deve fare commit/push del feed solo se il contenuto è cambiato, e gestire con **fetch + rebase e retry automatico** l'eventuale conflitto di push fra i due cron che scattano quasi in contemporanea.
 > - Nel README: spiegazione del funzionamento, istruzioni di setup/Pages, istruzioni per configurare il cron esterno su cron-job.org, link cliccabili e copiabili (formato `[url](url)`), sia il prompt di generazione originale sia questo prompt di rigenerazione.
+> - Resilienza di rete: timeout 45 s e fino a 4 tentativi con pausa crescente su timeout, errori di connessione e HTTP temporanei (408, 425, 429, 5xx); se il sito resta irraggiungibile il job non deve fallire (avviso `::warning::` e feed precedente invariato), mentre errori reali (403/404, 0 elementi) devono far fallire il job.
+> - Nel confronto "feed cambiato?" ignorare `lastBuildDate`, così si fa commit solo quando cambiano gli elementi.
+> - Workflow: runner `ubuntu-24.04` fissato, `timeout-minutes`, e `concurrency` con coda (senza cancellare i run) per evitare scritture parallele fra cron interno ed esterno.
 > - Versioning semantico (MAJOR.MINOR.PATCH) con `CHANGELOG.md`, numero di versione indicato nel README, e nome del file del pacchetto/zip consegnato che include sempre il numero di versione (es. `ecomuseo-mantova-rss-v1.0.0.zip`).

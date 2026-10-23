@@ -58,8 +58,17 @@ HEADERS = {
 
 
 REQUEST_TIMEOUT = 45  # secondi; il sito a volte è lento a rispondere
-MAX_FETCH_ATTEMPTS = 3
-RETRY_BACKOFF_SECONDS = 10
+MAX_FETCH_ATTEMPTS = 4
+RETRY_BACKOFF_SECONDS = 15
+
+# Errori HTTP considerati temporanei: si ritenta e, se persistono, il job NON
+# fallisce (il feed precedente resta pubblicato). Gli altri errori (es. 403/404)
+# indicano un problema reale (blocco anti-bot, URL cambiato) e fanno fallire il job.
+TRANSIENT_HTTP_STATUSES = {408, 425, 429, 500, 502, 503, 504, 520, 521, 522, 523, 524}
+
+
+class TransientFetchError(Exception):
+    """Il sito non è raggiungibile in questo momento (timeout, rete, 5xx)."""
 
 
 def fetch_list_page():
@@ -67,7 +76,9 @@ def fetch_list_page():
     for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
         try:
             resp = requests.get(LIST_URL, headers=HEADERS, timeout=REQUEST_TIMEOUT)
-            resp.raise_for_status()
+            if resp.status_code in TRANSIENT_HTTP_STATUSES:
+                raise TransientFetchError(f"HTTP {resp.status_code}")
+            resp.raise_for_status()  # altri 4xx/5xx: errore reale, non si ritenta
             print(
                 f"GET {LIST_URL} -> {resp.status_code}, "
                 f"{len(resp.content)} bytes, content-encoding="
@@ -75,7 +86,13 @@ def fetch_list_page():
                 f"content-type={resp.headers.get('Content-Type')}"
             )
             return resp.text
-        except (requests.exceptions.Timeout, requests.exceptions.ConnectionError) as exc:
+        except (
+            requests.exceptions.Timeout,
+            requests.exceptions.ConnectionError,
+            requests.exceptions.ChunkedEncodingError,
+            requests.exceptions.ContentDecodingError,
+            TransientFetchError,
+        ) as exc:
             last_error = exc
             print(
                 f"Tentativo {attempt}/{MAX_FETCH_ATTEMPTS} fallito "
@@ -84,7 +101,10 @@ def fetch_list_page():
             )
             if attempt < MAX_FETCH_ATTEMPTS:
                 time.sleep(RETRY_BACKOFF_SECONDS * attempt)
-    raise last_error
+    raise TransientFetchError(
+        f"sito non raggiungibile dopo {MAX_FETCH_ATTEMPTS} tentativi "
+        f"({last_error.__class__.__name__}: {last_error})"
+    )
 
 
 def parse_items(html):
@@ -183,6 +203,12 @@ def build_feed(items):
     return fg
 
 
+def _without_build_date(feed_bytes):
+    """lastBuildDate cambia a ogni generazione: va ignorata nel confronto,
+    altrimenti il feed risulta sempre 'modificato' e viene committato ogni ora."""
+    return re.sub(rb"<lastBuildDate>.*?</lastBuildDate>", b"", feed_bytes, flags=re.S)
+
+
 def read_existing_feed():
     if os.path.exists(FEED_PATH):
         with open(FEED_PATH, "rb") as f:
@@ -191,7 +217,13 @@ def read_existing_feed():
 
 
 def main():
-    html = fetch_list_page()
+    try:
+        html = fetch_list_page()
+    except TransientFetchError as exc:
+        # Il sito è momentaneamente irraggiungibile: non è un errore del repo.
+        # Si lascia il feed precedente com'è e si segnala solo un avviso.
+        print(f"::warning::Feed non aggiornato: {exc}. Si riprova al prossimo giro.")
+        return
     items = parse_items(html)
 
     if not items:
@@ -211,7 +243,7 @@ def main():
     new_feed_bytes = fg.rss_str(pretty=True)
 
     existing = read_existing_feed()
-    if existing == new_feed_bytes:
+    if existing is not None and _without_build_date(existing) == _without_build_date(new_feed_bytes):
         print("Feed invariato, nessun commit necessario.")
         return
 

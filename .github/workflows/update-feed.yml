@@ -11,9 +11,18 @@ on:
 permissions:
   contents: write
 
+# Cron interno ed esterno possono scattare quasi insieme: i run vengono messi
+# in coda uno alla volta (nessuna cancellazione) invece di scrivere in parallelo.
+concurrency:
+  group: update-feed
+  cancel-in-progress: false
+
 jobs:
   update-feed:
-    runs-on: ubuntu-latest
+    # Versione fissata (non "ubuntu-latest") per non subire cambi di immagine
+    # improvvisi, come la migrazione di ubuntu-latest a Ubuntu 26 di ottobre 2026.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
