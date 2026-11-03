@@ -7,21 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>it</language>
-    <lastBuildDate>Fri, 23 Oct 2026 18:01:17 +0000</lastBuildDate>
-    <item>
-      <title>Festival del Riso 2026</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3173/festival-del-riso-2026</link>
-      <description>XIV edizione - a cura della Pro Loco Castel d'Ario</description>
-      <guid isPermaLink="false">dc17d82c02b2663e23d030bdc6a12ceb3905695639485040ccc9f51e8474757a</guid>
-      <pubDate>Sat, 22 Aug 2026 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Inaugurazione della nuova sala consiliare di Roncoferraro e donazione delle opere di N. Calesella</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3177/inaugurazione-della-nuova-sala-consiliare-di-roncoferraro-e-donazione-delle-opere-di-n-calesella</link>
-      <description>Comune di Roncoferraro</description>
-      <guid isPermaLink="false">75bb0a86e52ab6176b484cb8d64b0a43448db9bb2508e27be7fc66d46a228240</guid>
-      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
-    </item>
+    <lastBuildDate>Tue, 03 Nov 2026 18:18:49 +0000</lastBuildDate>
     <item>
       <title>Inaugurazione Spazio Concari</title>
       <link>https://www.ecomuseomantova.it/news-eventi/3180/inaugurazione-spazio-concari</link>
@@ -57,11 +43,25 @@
       <pubDate>Sat, 24 Oct 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Spazio Concari - Laboratorio del fiume</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3188/spazio-concari-laboratorio-del-fiume</link>
-      <description>Programma eventi autunno 2026</description>
-      <guid isPermaLink="false">49ece82540cdf90d7365a40428d96321687b3d96d6a2d1e25c8fa166609dd61f</guid>
-      <pubDate>Tue, 08 Dec 2026 00:00:00 +0000</pubDate>
+      <title>Campagne 2026 - 20^ edizione</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3165/campagne-2026-20-edizione</link>
+      <description>Concorso fotografico del Consorzio Agrituristico Mantovano</description>
+      <guid isPermaLink="false">48f751879b9d0d992fbf55925e30b192a095c706a27b30b5f8289cc8287ea8ae</guid>
+      <pubDate>Fri, 30 Oct 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>L'Eccidio del Porzus</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3207/leccidio-del-porzus</link>
+      <description>Incontro di approfondimento storico a Roverbella</description>
+      <guid isPermaLink="false">8794cd573059afed53eef2d2161e9fac23c91fc1e38546fa04ec1b0826841dcf</guid>
+      <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Oss Fest 2026</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3204/oss-fest-2026</link>
+      <description>30^ edizione a cura della Pro Loco Castel d'Ario</description>
+      <guid isPermaLink="false">81485657d8e04b5285b70c13c08a2e7aec34b47beb616107f279f3d00f6c709f</guid>
+      <pubDate>Fri, 04 Dec 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Storie a lume di libro</title>
