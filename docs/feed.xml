@@ -7,14 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>it</language>
-    <lastBuildDate>Tue, 03 Nov 2026 18:18:49 +0000</lastBuildDate>
-    <item>
-      <title>Inaugurazione Spazio Concari</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3180/inaugurazione-spazio-concari</link>
-      <description>Laboratorio del Fiume - 5/6/7 settembre 2026</description>
-      <guid isPermaLink="false">28c8787ab6886a5d73d6c2a01ad8ea01b0a0d907c7b104b705df975d1bb2154b</guid>
-      <pubDate>Sat, 05 Sep 2026 00:00:00 +0000</pubDate>
-    </item>
+    <lastBuildDate>Wed, 04 Nov 2026 17:01:17 +0000</lastBuildDate>
     <item>
       <title>La mia Mantova - 2^ edizione</title>
       <link>https://www.ecomuseomantova.it/news-eventi/3185/la-mia-mantova-2-edizione</link>
@@ -55,6 +48,12 @@
       <description>Incontro di approfondimento storico a Roverbella</description>
       <guid isPermaLink="false">8794cd573059afed53eef2d2161e9fac23c91fc1e38546fa04ec1b0826841dcf</guid>
       <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Aperitivo Poetico - Storie a lume di libro</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3210/aperitivo-poetico-storie-a-lume-di-libro</link>
+      <guid isPermaLink="false">a8a94e6b0b9d0856aae1439d0221cd33c5c4c7d5bf1d19539d1def4b83c77175</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Oss Fest 2026</title>
