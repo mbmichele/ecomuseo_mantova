@@ -7,7 +7,7 @@
     <docs>http://www.rssboard.org/rss-specification</docs>
     <generator>python-feedgen</generator>
     <language>it</language>
-    <lastBuildDate>Wed, 04 Nov 2026 17:01:17 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Nov 2026 11:01:18 +0000</lastBuildDate>
     <item>
       <title>La mia Mantova - 2^ edizione</title>
       <link>https://www.ecomuseomantova.it/news-eventi/3185/la-mia-mantova-2-edizione</link>
@@ -50,24 +50,24 @@
       <pubDate>Wed, 04 Nov 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
+      <title>Roverbella: Storia, luoghi, avvenimenti, personaggi del passato, del presente e curiosità</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3214/roverbella-storia-luoghi-avvenimenti-personaggi-del-passato-del-presente-e-curiosita</link>
+      <description>Presentazione libro</description>
+      <guid isPermaLink="false">1daa11dad5336ff6a2a0ea7fd1fcceea95ffc78ddf744101f9b28522d72597b3</guid>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 +0000</pubDate>
+    </item>
+    <item>
       <title>Aperitivo Poetico - Storie a lume di libro</title>
       <link>https://www.ecomuseomantova.it/news-eventi/3210/aperitivo-poetico-storie-a-lume-di-libro</link>
       <guid isPermaLink="false">a8a94e6b0b9d0856aae1439d0221cd33c5c4c7d5bf1d19539d1def4b83c77175</guid>
       <pubDate>Thu, 19 Nov 2026 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>Oss Fest 2026</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3204/oss-fest-2026</link>
-      <description>30^ edizione a cura della Pro Loco Castel d'Ario</description>
-      <guid isPermaLink="false">81485657d8e04b5285b70c13c08a2e7aec34b47beb616107f279f3d00f6c709f</guid>
-      <pubDate>Fri, 04 Dec 2026 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Storie a lume di libro</title>
-      <link>https://www.ecomuseomantova.it/news-eventi/3198/storie-a-lume-di-libro</link>
-      <description>La rassegna autunnale degli eventi delle Biblioteche di Roncoferraro e Governolo,</description>
-      <guid isPermaLink="false">039be811bb5f7c979be5673bc5950f15f4a161127ee213b7f7f11b999bc59c40</guid>
-      <pubDate>Tue, 22 Dec 2026 00:00:00 +0000</pubDate>
+      <title>Spazio Concari - Laboratorio del fiume</title>
+      <link>https://www.ecomuseomantova.it/news-eventi/3188/spazio-concari-laboratorio-del-fiume</link>
+      <description>Programma eventi autunno 2026</description>
+      <guid isPermaLink="false">49ece82540cdf90d7365a40428d96321687b3d96d6a2d1e25c8fa166609dd61f</guid>
+      <pubDate>Tue, 08 Dec 2026 00:00:00 +0000</pubDate>
     </item>
   </channel>
 </rss>
